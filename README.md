@@ -21,3 +21,7 @@ Some environment variables must be provided, a `.env` file also can be used to p
 |    `AI_COMMIT_MODEL`    | OpenAI API style model name                       |   Yes    |        `deepseek-reasoner`        |                       -                        |
 | `AI_COMMIT_SHOW_REASON` | `1` for showing reasoning contents                |    No    |           `1` or other            |                       -                        |
 |   `AI_COMMIT_FILTER`    | A RegExp file name filter for ignoring their diff |    No    | `package-lock\.json\| yarn\.lock` | See [here](./src/includes/default_filters.txt) |
+
+## Sponsor
+
+<a href="https://www.buymeacoffee.com/snrainiar"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=snrainiar&button_colour=FF5F5F&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
