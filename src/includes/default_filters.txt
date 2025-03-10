@@ -1,0 +1,18 @@
+# Each line is a RegExp file name filter
+# Write a comment starts with a sharp mark
+
+# NodeJS
+package-lock\.json
+yarn\.lock
+pnpm-lock\.yaml
+
+# Python
+Pipfile\.lock
+poetry\.lock
+uv\.lock
+
+# Rust
+Cargo\.lock
+
+# PHP
+composer\.lock
