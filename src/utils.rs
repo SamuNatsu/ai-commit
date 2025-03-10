@@ -49,5 +49,9 @@ where
         })
         .fold(String::new(), |prev, cur| format!("{prev}\n{cur}"));
 
-    Ok(ret[1..].to_owned())
+    Ok(if ret.is_empty() {
+        ret
+    } else {
+        ret[1..].to_owned()
+    })
 }
