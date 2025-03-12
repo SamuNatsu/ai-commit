@@ -4,10 +4,16 @@ A Command Line Utility for AI Generating Git Commit Message
 
 ## Install
 
-Use `cargo install` for automatically compiling and installing.
+### Use Cargo Install
 
 ```sh
 cargo install --git https://github.com/SamuNatsu/ai-commit
+```
+
+### Use CLI (Linux/MacOS only)
+
+```sh
+curl -s https://installer.samunatsu.workers.dev/SamuNatsu/ai-commit | bash
 ```
 
 ## Environment Variables
