@@ -82,20 +82,20 @@ jobs:
       #   if: ${{ matrix.platform.runs-on == 'macOS-latest' }}
 
       - name: Compress binary target for Linux platform
-        run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/mihomosh
+        run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/ai-commit
         if: ${{ matrix.platform.runs-on == 'ubuntu-latest' && !matrix.platform.skip-upx }}
 
       - name: Compress binary target for Windows platform
-        run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/mihomosh.exe
+        run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/ai-commit.exe
         if: ${{ matrix.platform.runs-on == 'windows-latest' && !matrix.platform.skip-upx }}
 
       # - name: Compress binary target for MacOS platform
-      #   run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/mihomosh
+      #   run: upx --best --lzma -q target/${{ matrix.platform.target }}/release/ai-commit
       #   if: ${{ matrix.platform.runs-on == 'macOS-latest' && !matrix.platform.skip-upx }}
 
       - name: Publish artifacts and release
         uses: houseabsolute/actions-rust-release@v0
         with:
-          executable-name: mihomosh
+          executable-name: ai-commit
           target: ${{ matrix.platform.target }}
           changes-file: release-notes.md
