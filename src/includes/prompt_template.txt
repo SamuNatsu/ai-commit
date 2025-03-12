@@ -2,14 +2,14 @@ Write a professional git commit message based on the diff below in English.
 Do not preface the commit with anything, use the present tense, return the full sentence and also commit type.
 
 
-Your reply should be formatted as below: 
+Your reply should be formatted as below:
 
-{commit type}: {commit summary}
+{commit type}: {commit summary, short and brief as possible, less than 30 characters}
 
 - {Some detailed commit message 1}
 - {Some detailed commit message 2}
 - {You can add more items of detailed commit message in a list format}
-- {Please let the messages listed here to be brief, better no more than 20 words}
+- {Please let the messages listed here to be brief, no more than 20 words}
 
 
 Current file name RegExp filter is presented below, these files will be filtered in diff:

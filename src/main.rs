@@ -154,7 +154,7 @@ async fn main() -> Result<()> {
         if !reason_end && msg.choices[0].delta.content.is_some() {
             reason_end = true;
 
-            if args.verbose {
+            if is_reason && args.verbose {
                 println!("\n");
             }
         }
@@ -163,7 +163,7 @@ async fn main() -> Result<()> {
         if reason_end {
             print!("{}", msg.choices[0].delta.content.clone().unwrap());
             io::stdout().flush()?;
-        } else if args.verbose {
+        } else if is_reason && args.verbose {
             print!(
                 "{}",
                 console::style(msg.choices[0].delta.reasoning_content.clone().unwrap())
