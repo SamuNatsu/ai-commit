@@ -12,15 +12,49 @@ cargo install --git https://github.com/SamuNatsu/ai-commit
 
 ## Environment Variables
 
-Some environment variables must be provided, a `.env` file also can be used to provide such variables.
+Some environment variables must be provided, dotenv files also can be used to provide such variables.
 
-|          Name           | Introduction                                      | Required |              Example              |                    Default                     |
-| :---------------------: | :------------------------------------------------ | :------: | :-------------------------------: | :--------------------------------------------: |
-|  `AI_COMMIT_ENDPOINT`   | OpenAI API style endpoint url                     |   Yes    |    `https://api.deepseek.com/`    |                       -                        |
-|   `AI_COMMIT_API_KEY`   | OpenAI API style API key                          |   Yes    |       `sk-xxxxxxxxxxxxxxx`        |                       -                        |
-|    `AI_COMMIT_MODEL`    | OpenAI API style model name                       |   Yes    |        `deepseek-reasoner`        |                       -                        |
-| `AI_COMMIT_SHOW_REASON` | `1` for showing reasoning contents                |    No    |           `1` or other            |                       -                        |
-|   `AI_COMMIT_FILTER`    | A RegExp file name filter for ignoring their diff |    No    | `package-lock\.json\| yarn\.lock` | See [here](./src/includes/default_filters.txt) |
+|         Name         | Introduction                                      | Required |              Example              |                    Default                     |
+| :------------------: | :------------------------------------------------ | :------: | :-------------------------------: | :--------------------------------------------: |
+| `AI_COMMIT_ENDPOINT` | OpenAI API style endpoint url                     |   Yes    |    `https://api.deepseek.com/`    |                       -                        |
+| `AI_COMMIT_API_KEY`  | OpenAI API style API key                          |   Yes    |       `sk-xxxxxxxxxxxxxxx`        |                       -                        |
+|  `AI_COMMIT_MODEL`   | OpenAI API style model name                       |   Yes    |        `deepseek-reasoner`        |                       -                        |
+|  `AI_COMMIT_FILTER`  | A RegExp file name filter for ignoring their diff |    No    | `package-lock\.json\| yarn\.lock` | See [here](./src/includes/default_filters.txt) |
+
+## Usage
+
+### TL; DR
+
+```txt
+A Command Line Utility for AI Generating Git Commit Message
+
+Usage: ai-commit [OPTIONS]
+
+Options:
+  -v, --verbose                    Show verbose message
+  -t, --commit-type <COMMIT_TYPE>  Force using the given commit type
+  -p, --prompt <PROMPT>            Additional prompt message
+  -d, --dotenv <DOTENV>            Dotenv profile name
+  -h, --help                       Print help
+  -V, --version                    Print version
+```
+
+## Additional message
+
+You can add a custom prompt message for AI model, makes it better understands your demands.
+
+```sh
+ai-commit -p "This commit is for optimization"
+```
+
+## Dotenv profiles
+
+You can use different dotenv file by passing the `-d|--dotenv` option.  
+Command below will use `.env.openai` as profile:
+
+```sh
+ai-commit -d openai
+```
 
 ## Sponsor
 
