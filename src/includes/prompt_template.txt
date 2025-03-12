@@ -12,6 +12,11 @@ Your reply should be formatted as below:
 - {Please let the messages listed here to be brief, better no more than 20 words}
 
 
-Here is the diff:
+Current file name RegExp filter is presented below, these files will be filtered in diff:
+
+<|FILTER|>
+
+
+<|COMMIT_TYPE|><|PROMPT|>Here is the diff:
 
 <|DIFF|>

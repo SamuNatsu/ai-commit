@@ -12,6 +12,7 @@ panic = "abort"
 
 [dependencies]
 anyhow = "1.0.97"
+clap = { version = "4.5.32", features = ["derive"] }
 console = "0.15.11"
 dotenv = "0.15.0"
 futures-util = "0.3.31"

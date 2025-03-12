@@ -1,3 +1,6 @@
+# Build target
 /target
-.env
 
+# Environment
+.env
+.env.*

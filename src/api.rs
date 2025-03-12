@@ -6,8 +6,6 @@ use serde::Deserialize;
 use serde_json::json;
 use url::Url;
 
-const SYSTEM_PROMPT: &'static str = include_str!("./includes/system_prompt.txt");
-
 pub struct Api {
     endpoint: String,
     api_key: String,
@@ -35,15 +33,14 @@ impl Api {
 
     pub async fn gen_completion<S: AsRef<str>>(
         &self,
-        diff: S,
+        prompt: S,
     ) -> Result<impl StreamExt<Item = Result<Resp>>> {
         let url = Url::parse(&self.endpoint)?.join("chat/completions")?;
 
-        let content = SYSTEM_PROMPT.replace("<|DIFF|>", diff.as_ref());
         let body = json!({
             "messages": [{
                 "role": "user",
-                "content": content
+                "content": prompt.as_ref()
             }],
             "model": self.model,
             "max_tokens": 8192,
