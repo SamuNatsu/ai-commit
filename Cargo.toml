@@ -17,9 +17,9 @@ console = "0.15.11"
 dotenv = "0.15.0"
 futures-util = "0.3.31"
 regex = "1.11.1"
-reqwest = "0.12.12"
+reqwest = { version = "0.12.12", default-features = false, features = ["rustls-tls-native-roots"] }
 reqwest-eventsource = "0.6.0"
 serde = { version = "1.0.218", features = ["derive"] }
 serde_json = "1.0.140"
-tokio = { version = "1.43.0", features = ["macros", "process", "rt-multi-thread"] }
+tokio = { version = "1.43.0", default-features = false, features = ["macros", "process", "rt-multi-thread"] }
 url = "2.5.4"

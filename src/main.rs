@@ -63,7 +63,7 @@ async fn main() -> Result<()> {
     let mut prompt = String::new();
     if let Some(p) = &args.prompt {
         prompt = format!(
-            "Here are some additional message for you to writer a better git commit message:\n\n'{}'\n\n\n",
+            "Here are some additional message for you to writer a better git commit message:\n\n{}\n\n\n",
             p
         );
     }
