@@ -37,20 +37,13 @@ A Command Line Utility for AI Generating Git Commit Message
 Usage: ai-commit [OPTIONS]
 
 Options:
-  -v, --verbose                    Show verbose message
-  -t, --commit-type <COMMIT_TYPE>  Force using the given commit type
-  -p, --prompt <PROMPT>            Additional prompt message
-  -d, --dotenv <DOTENV>            Dotenv profile name
-  -h, --help                       Print help
-  -V, --version                    Print version
-```
-
-## Additional message
-
-You can add a custom prompt message for AI model, makes it better understands your demands.
-
-```sh
-ai-commit -p "This commit is for optimization"
+  -v, --verbose                      Show verbose message
+  -d, --dotenv <DOTENV>              Dotenv profile name
+  -t, --commit-type <COMMIT_TYPE>    Force using the given commit type
+  -s, --commit-scope <COMMIT_SCOPE>  Force using the given commit scope
+  -p, --prompt <PROMPT>              Additional prompt message
+  -h, --help                         Print help
+  -V, --version                      Print version
 ```
 
 ## Dotenv profiles
@@ -60,6 +53,14 @@ Command below will use `.env.openai` as profile:
 
 ```sh
 ai-commit -d openai
+```
+
+## Additional message
+
+You can add a custom prompt message for AI model, makes it better understands your demands.
+
+```sh
+ai-commit -p "This commit is for optimization"
 ```
 
 ## Sponsor
