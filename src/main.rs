@@ -142,13 +142,16 @@ async fn main() -> Result<()> {
         // Check is reason
         if !is_reason && msg.choices[0].delta.reasoning_content.is_some() {
             is_reason = true;
-            println!(
-                "{}\n",
-                console::style("Reasoning model detected, you can use `-v` or `--verbose` flag to see the reasoning contents")
-                    .bold()
-                    .bright()
-                    .cyan()
-            );
+
+            if !args.verbose {
+                println!(
+                    "{}\n",
+                    console::style("Reasoning model detected, you can use `-v` or `--verbose` flag to see the reasoning contents")
+                        .bold()
+                        .bright()
+                        .cyan()
+                );
+            }
         }
 
         // Check reason end
