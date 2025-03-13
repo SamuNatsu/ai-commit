@@ -1,5 +1,6 @@
 mod api;
 mod args;
+mod git;
 mod utils;
 
 use std::{
@@ -29,7 +30,7 @@ async fn main() -> Result<()> {
     }
 
     // Check working directory is a repository
-    if !utils::is_git_repo().await? {
+    if !git::is_repo().await? {
         bail!("current working directory is not a git repository");
     }
 
@@ -42,7 +43,7 @@ async fn main() -> Result<()> {
     let filter = env::var("AI_COMMIT_FILTER").unwrap_or(filter[1..].to_owned());
 
     // Get filtered diff
-    let diff = utils::get_git_diff().await?;
+    let diff = git::get_staged_diff().await?;
     let diff = utils::filter_diff(diff, &filter)?;
     let diff = diff.trim();
 
@@ -180,7 +181,7 @@ async fn main() -> Result<()> {
 
     // Create a commit
     if utils::confirm("Create a commit?")? {
-        utils::create_commit(&output).await?;
+        git::create_commit(&output).await?;
         println!("{}", console::style("Commit created").bright().green());
     } else {
         println!("{}", console::style("No change").bright().black());
