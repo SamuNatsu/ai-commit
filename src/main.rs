@@ -61,6 +61,11 @@ async fn main() -> Result<()> {
         );
     }
 
+    let mut commit_scope = String::new();
+    if let Some(s) = &args.commit_scope {
+        commit_scope = format!("According to my demand, the commit scope must be '{s}'.\n\n\n");
+    }
+
     let mut prompt = String::new();
     if let Some(p) = &args.prompt {
         prompt = format!(
@@ -73,6 +78,7 @@ async fn main() -> Result<()> {
     let prompt = PROMPT_TEMPLATE
         .replace("<|FILTER|>", &filter)
         .replace("<|COMMIT_TYPE|>", &commit_type)
+        .replace("<|COMMIT_SCOPE|>", &commit_scope)
         .replace("<|PROMPT|>", &prompt)
         .replace("<|DIFF|>", &diff);
     let prompt = prompt.trim();

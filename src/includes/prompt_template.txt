@@ -4,7 +4,7 @@ Do not preface the commit with anything, use the present tense, return the full 
 
 Your reply should be formatted as below:
 
-{commit type}: {commit summary, short and brief as possible, less than 30 characters}
+{commit type}({optional commit scope}): {commit summary, short and brief as possible, less than 30 characters}
 
 - {Some detailed commit message 1}
 - {Some detailed commit message 2}
@@ -17,6 +17,6 @@ Current file name RegExp filter is presented below, these files will be filtered
 <|FILTER|>
 
 
-<|COMMIT_TYPE|><|PROMPT|>Here is the diff:
+<|COMMIT_TYPE|><|COMMIT_SCOPE|><|PROMPT|>Here is the diff:
 
 <|DIFF|>
