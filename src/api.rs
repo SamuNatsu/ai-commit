@@ -20,6 +20,7 @@ impl Api {
     {
         let endpoint = endpoint.as_ref().to_owned();
 
+        // Return object
         Self {
             endpoint: if endpoint.ends_with("/") {
                 endpoint
@@ -35,8 +36,7 @@ impl Api {
         &self,
         prompt: S,
     ) -> Result<impl StreamExt<Item = Result<Resp>>> {
-        let url = Url::parse(&self.endpoint)?.join("chat/completions")?;
-
+        // Create body
         let body = json!({
             "messages": [{
                 "role": "user",
@@ -50,12 +50,16 @@ impl Api {
             }
         });
 
+        // Create request
+        let url = Url::parse(&self.endpoint)?.join("chat/completions")?;
         let req = Client::new()
             .post(url)
             .header("Content-Type", "application/json")
             .header("Accept", "application/json")
             .bearer_auth(&self.api_key)
             .body(serde_json::to_string(&body)?);
+
+        // Create event source stream
         let s = EventSource::new(req)?.filter_map(async |ev| match ev {
             Ok(Event::Open) => None::<Result<Resp>>,
             Ok(Event::Message(msg)) => {
@@ -70,6 +74,7 @@ impl Api {
             Err(err) => Some(Err(err.into())),
         });
 
+        // Create pined stream
         Ok(Box::pin(s))
     }
 }

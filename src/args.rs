@@ -8,6 +8,10 @@ pub struct Args {
     #[arg(short, long)]
     pub verbose: bool,
 
+    /// Dotenv profile name
+    #[arg(short, long)]
+    pub dotenv: Option<String>,
+
     /// Force using the given commit type
     #[arg(short = 't', long)]
     pub commit_type: Option<String>,
@@ -19,8 +23,4 @@ pub struct Args {
     /// Additional prompt message
     #[arg(short, long)]
     pub prompt: Option<String>,
-
-    /// Dotenv profile name
-    #[arg(short, long)]
-    pub dotenv: Option<String>,
 }

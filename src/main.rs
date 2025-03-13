@@ -55,10 +55,7 @@ async fn main() -> Result<()> {
     // Create additional messages
     let mut commit_type = String::new();
     if let Some(t) = &args.commit_type {
-        commit_type = format!(
-            "According to my demand, the commit type must be '{}'.\n\n\n",
-            t
-        );
+        commit_type = format!("According to my demand, the commit type must be '{t}'.\n\n\n");
     }
 
     let mut commit_scope = String::new();
@@ -69,8 +66,7 @@ async fn main() -> Result<()> {
     let mut prompt = String::new();
     if let Some(p) = &args.prompt {
         prompt = format!(
-            "Here are some additional message for you to writer a better git commit message:\n\n{}\n\n\n",
-            p
+            "Here are some additional message for you to writer a better git commit message:\n\n{p}\n\n\n"
         );
     }
 
@@ -138,7 +134,7 @@ async fn main() -> Result<()> {
             break;
         }
 
-        // Print unexpected finish
+        // If unexpected finish
         if let Some(finish) = &msg.choices[0].finish_reason {
             if finish != "stop" {
                 bail!("unexpected generating end: {finish}");
@@ -174,7 +170,7 @@ async fn main() -> Result<()> {
             let content = msg.choices[0].delta.content.clone().unwrap();
             output.push_str(&content);
 
-            print!("{}", content);
+            print!("{content}");
             io::stdout().flush()?;
         } else if is_reason && args.verbose {
             print!(

@@ -8,25 +8,28 @@ where
     S1: AsRef<str>,
     S2: AsRef<str>,
 {
+    // Create filter regular expression
     let re = format!(r"^diff --git a\/(.*\/)?({})", filter.as_ref());
     let re = Regex::new(&re)?;
 
-    let mut is_lock_file = false;
+    // Filter lines
+    let mut filter_enabled = false;
     let ret = diff
         .as_ref()
         .lines()
         .filter(|line| {
             if re.is_match(&line) {
-                is_lock_file = true;
+                filter_enabled = true;
                 return false;
             }
-            if is_lock_file && line.starts_with("diff --git") {
-                is_lock_file = false;
+            if filter_enabled && line.starts_with("diff --git") {
+                filter_enabled = false;
             }
-            return !is_lock_file;
+            return !filter_enabled;
         })
         .fold(String::new(), |prev, cur| format!("{prev}\n{cur}"));
 
+    // Return filtered diff
     Ok(if ret.is_empty() {
         ret
     } else {
@@ -35,6 +38,7 @@ where
 }
 
 pub fn confirm<S: AsRef<str>>(prompt: S) -> Result<bool> {
+    // Print prompt
     print!(
         "{}",
         console::style(format!("{} (y/N): ", prompt.as_ref()))
@@ -44,8 +48,10 @@ pub fn confirm<S: AsRef<str>>(prompt: S) -> Result<bool> {
     );
     io::stdout().flush()?;
 
+    // Read user input
     let mut buf = String::new();
     io::stdin().read_line(&mut buf)?;
 
+    // Return result
     Ok(buf.trim().to_lowercase() == "y")
 }
