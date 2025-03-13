@@ -30,9 +30,10 @@ pub async fn get_git_diff() -> Result<String> {
 pub async fn create_commit<S: AsRef<str>>(msg: S) -> Result<()> {
     Command::new("git")
         .arg("commit")
+        .arg("-e")
         .arg("-m")
         .arg(msg.as_ref())
-        .output()
+        .status()
         .await?;
 
     Ok(())
@@ -72,7 +73,7 @@ where
 pub fn confirm<S: AsRef<str>>(prompt: S) -> Result<bool> {
     print!(
         "{}",
-        console::style(format!("{} (y/N):", prompt.as_ref()))
+        console::style(format!("{} (y/N): ", prompt.as_ref()))
             .bold()
             .bright()
             .yellow()
