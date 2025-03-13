@@ -111,15 +111,15 @@ async fn main() -> Result<()> {
         .with_context(|| "try to generate completion")?;
     let mut is_reason = false;
     let mut reason_end = false;
+    let mut output = String::new();
 
     while let Some(msg) = r.next().await {
         let msg = msg?;
 
         // Print usage
         if let Some(usage) = msg.usage {
-            println!("\n");
             println!(
-                "{}",
+                "\n\n{}\n",
                 console::style(format!(
                     "Prompt Tokens: {}\nCompletion Tokens: {}\nTotal Tokens: {}",
                     usage.prompt_tokens, usage.completion_tokens, usage.total_tokens
@@ -161,7 +161,10 @@ async fn main() -> Result<()> {
 
         // Print contents
         if reason_end {
-            print!("{}", msg.choices[0].delta.content.clone().unwrap());
+            let content = msg.choices[0].delta.content.clone().unwrap();
+            output.push_str(&content);
+
+            print!("{}", content);
             io::stdout().flush()?;
         } else if is_reason && args.verbose {
             print!(
@@ -173,6 +176,14 @@ async fn main() -> Result<()> {
             );
             io::stdout().flush()?;
         }
+    }
+
+    // Create a commit
+    if utils::confirm("Create a commit?")? {
+        utils::create_commit(&output).await?;
+        println!("{}", console::style("Commit created").bright().green());
+    } else {
+        println!("{}", console::style("No change").bright().black());
     }
 
     // Success

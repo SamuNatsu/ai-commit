@@ -1,3 +1,5 @@
+use std::io::{self, Write};
+
 use anyhow::Result;
 use regex::Regex;
 use tokio::process::Command;
@@ -23,6 +25,17 @@ pub async fn get_git_diff() -> Result<String> {
         .stdout;
 
     Ok(String::from_utf8(output)?)
+}
+
+pub async fn create_commit<S: AsRef<str>>(msg: S) -> Result<()> {
+    Command::new("git")
+        .arg("commit")
+        .arg("-m")
+        .arg(msg.as_ref())
+        .output()
+        .await?;
+
+    Ok(())
 }
 
 pub fn filter_diff<S1, S2>(diff: S1, filter: S2) -> Result<String>
@@ -54,4 +67,20 @@ where
     } else {
         ret[1..].to_owned()
     })
+}
+
+pub fn confirm<S: AsRef<str>>(prompt: S) -> Result<bool> {
+    print!(
+        "{}",
+        console::style(format!("{} (y/N):", prompt.as_ref()))
+            .bold()
+            .bright()
+            .yellow()
+    );
+    io::stdout().flush()?;
+
+    let mut buf = String::new();
+    io::stdin().read_line(&mut buf)?;
+
+    Ok(buf.trim().to_lowercase() == "y")
 }
